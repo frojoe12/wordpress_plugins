@@ -47,22 +47,21 @@ class JoeFrostPlugin {
     }
     function activate() {
         require_once plugin_dir_path( __FILE__) . "inc/joefrost-plugin-activate.php";
-        register_activation_hook( __FILE__, ['JoeFrostPluginActivate','activate']);
+        JoeFrostPluginActivate::activate();
     }
     function deactivate() {
         require_once plugin_dir_path(__FILE__) . "inc/joefrost-plugin-deactivate.php";
-        register_deactivation_hook( __FILE__, ['JoeFrostPluginDeactivate','deactivate']);
+        JoeFrostPluginDeactivate::deactivate();
     }
 }
 
 if (class_exists('JoeFrostPlugin')) {
     $joeFrostPlugin = new JoeFrostPlugin();
     $joeFrostPlugin->register();
-    $joeFrostPlugin->activate();
-    $joeFrostPlugin->deactivate();
 }
 
-
+register_activation_hook( __FILE__, [$joeFrostPlugin,'activate']);
+register_deactivation_hook( __FILE__, [$joeFrostPlugin,'deactivate']);
 
 // uninstall
 // register_uninstall_hook( __FILE__, [$joeFrostPlugin,'uninstall']);
